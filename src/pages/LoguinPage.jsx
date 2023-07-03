@@ -3,10 +3,22 @@ import React from 'react';
 import LoguinForm from '../components/loguin/SignInSide';
 import AuthLayout from './AuthLayout';
 import RegisterUser from '../components/loguin/RegisterUser';
+import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const LoguinPage = () => {
+
+  const navigate = useNavigate()
+
   const handleSubmit = (data) => {
-    console.log(data)
+    axios.post('http://localhost:8000/users/login', data)
+      .then((res) => {
+        console.log(res)
+        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("id", res.data.id)
+        navigate("/home")
+      })
+      .catch((error) => console.error(error));
   }
 
   const handleChage = (data) => {
