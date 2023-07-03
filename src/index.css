@@ -4,8 +4,13 @@
   padding: 0;
 }
 
+.App {
+  display: grid;
+}
+
 .cardRegistrer {
   padding: 15px;
+  align-items: end;
 }
 
 .BoxRegistrer {
@@ -14,9 +19,4 @@
 
 .StackRegistrer {
   gap: 20px;
-}
-
-.App {
-  display: grid;
-  justify-content: center;
 }

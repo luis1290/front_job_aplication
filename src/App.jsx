@@ -1,20 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import RegisterForm from './components/RegisterForm'
+import RegisterUser from './components/loguin/RegisterUser'
 import { Box } from '@mui/material'
+import LoguinForm from './components/loguin/SignInSide'
+import LoguinPage from './pages/LoguinPage'
+
+import RegisterPage from './pages/RegisterPage'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Home from './pages/Home'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <Box >
-        <RegisterForm />
-      </Box>
-
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+        <Route path='/home' element={<Home />} />
+          <Route path='/loguin' element={<LoguinPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
