@@ -13,7 +13,7 @@ import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField,
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-const LoguinForm = ({ clickableText, path }) => {
+const LoguinForm = ({ clickableText, path, onSubmit, onChange }) => {
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -38,6 +38,7 @@ const LoguinForm = ({ clickableText, path }) => {
   const validateImput = () => {
     setEmailError(!formData.email)
     setPasswordError(!formData.password)
+    return formData.email && formData.password
   }
 
   function Copyright(props) {
@@ -136,8 +137,10 @@ const LoguinForm = ({ clickableText, path }) => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => {
-                  validateImput();
-                  console.log(formData)
+                  if (validateImput()) {
+                    onSubmit(formData)
+                    console.log(formData)
+                  }
                 }}
               >
                 Loguin

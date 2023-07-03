@@ -13,7 +13,7 @@ import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField,
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-const RegisterUser = ({ clickableText, path }) => {
+const RegisterUser = ({ clickableText, path, onSubmit, onChange }) => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -37,6 +37,10 @@ const RegisterUser = ({ clickableText, path }) => {
     setEmailError(!formData.email)
     setPasswordError(!formData.password)
     setConfirmPasswordError(!formData.confirmPassword)
+    // devuelve falso si hay errores 
+    //devuelve true si no hay errores
+   
+    return formData.name && formData.email && formData.password && formData.confirmPassword
   }
 
   function Copyright(props) {
@@ -66,6 +70,8 @@ const RegisterUser = ({ clickableText, path }) => {
     if (confirmPasswordError && confirmPassword) {
       setConfirmPasswordError(false)
     }
+
+    onChange({ name, email, password })
     setFormData({ name, email, password, confirmPassword })
   }, [name, email, password, confirmPassword])
 
@@ -183,8 +189,13 @@ const RegisterUser = ({ clickableText, path }) => {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
                 onClick={() => {
-                  validateImput();
-                  console.log(formData)
+                  // validateImput();
+                  if (validateImput()) {
+                    onSubmit(formData)
+                    console.log(formData)
+                  }
+
+                  // 
                 }}
               >
                 Registrarce
