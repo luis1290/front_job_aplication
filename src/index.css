@@ -20,3 +20,10 @@
 .StackRegistrer {
   gap: 20px;
 }
+
+/* nabar */
+
+.linkMenu {
+  text-decoration: none;
+  color: black;
+}

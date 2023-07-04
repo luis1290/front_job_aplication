@@ -17,10 +17,12 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ModalDetail from '../components/ModalDetail';
 import AdbIcon from '@mui/icons-material/Adb';
 import NapBar from '../components/NapBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 
 function Copyright() {
   return (
@@ -42,7 +44,12 @@ const defaultTheme = createTheme();
 
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const jobAplication = useSelector((state) => state.jobAplication);
   const [open, setOpen] = useState(false);
+
+  const id = localStorage.getItem("id")
+  const aplication = jobAplication?.aplicatio_jobs
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,11 +58,22 @@ const Home = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    console.log(aplication)
+    dispatch(getJobAplicationThunk(id));
+  }, []);
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <NapBar />
+      {/* {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))} */}
+
+      <NapBar nameUser={jobAplication.name} />
       <main>
         {/* Hero unit */}
         <Box

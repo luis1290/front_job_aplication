@@ -14,9 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 
-const NapBar = () => {
+const NapBar = ({ nameUser }) => {
 
-  const pages = ['Products', 'Pricing', 'Blog'];
+  const pages = ['Empresas', 'Pricing', 'Blog'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -154,11 +154,15 @@ const NapBar = () => {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))} */}
-              <MenuItem>
-                <Link>
-                  <Typography textAlign="center">
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Link className='linkMenu'>
+                  <Typography textAlign="center" >
+                    {nameUser}
+                  </Typography>
+                  <Typography textAlign="center" >
                     cerrar secion
                   </Typography>
+
                 </Link>
               </MenuItem>
             </Menu>
