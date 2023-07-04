@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -16,7 +16,11 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { useState } from 'react';
+import ModalDetail from '../components/ModalDetail';
+import AdbIcon from '@mui/icons-material/Adb';
+import NapBar from '../components/NapBar';
 
 function Copyright() {
   return (
@@ -38,26 +42,20 @@ const defaultTheme = createTheme();
 
 
 const Home = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Aplicaciones
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
+
+      <NapBar />
       <main>
         {/* Hero unit */}
         <Box
@@ -75,9 +73,9 @@ const Home = () => {
               color="text.primary"
               gutterBottom
             >
-             Aplicaciones de trabajo
+              Aplicaciones de trabajo
             </Typography>
-            
+
             <Stack
               sx={{ pt: 4 }}
               direction="row"
@@ -98,24 +96,21 @@ const Home = () => {
                 >
                   <CardMedia
                     component="div"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random?wallpapers"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
+                  >
                     <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                      Nombre de aplicación
                     </Typography>
+                  </CardMedia>
+                  <CardContent sx={{ flexGrow: 1 }}>
                     <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
+                      Descripción de la aplicación
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button onClick={handleOpen} size="small">Detalles</Button>
+                    <ModalDetail openModal={handleOpen} />
+                    <Button size="small">Editar</Button>
+                    <Button size="small">Eliminar</Button>
                   </CardActions>
                 </Card>
               </Grid>
