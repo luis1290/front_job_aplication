@@ -2,13 +2,18 @@ import { Box } from '@mui/material';
 import React from 'react';
 import RegisterUser from '../components/loguin/RegisterUser';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
 
   const handleSubmit = (data) => {
     const { email, name, password } = data
     axios.post('http://localhost:8000/users', { name, email, password })
-      .then((res) => { console.log(res) })
+      .then((res) => {
+        console.log(res)
+        navigate("/loguin")
+      })
       .catch((error) => console.error(error));
   }
 

@@ -8,6 +8,7 @@ import LoguinPage from './pages/LoguinPage'
 import RegisterPage from './pages/RegisterPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,9 +17,13 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-        <Route path='/home' element={<Home />} />
+
           <Route path='/loguin' element={<LoguinPage />} />
           <Route path='/register' element={<RegisterPage />} />
+
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/home' element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
