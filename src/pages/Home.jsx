@@ -55,11 +55,9 @@ const Home = () => {
 
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(!open);
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
 
   useEffect(() => {
     setApli(jobAplication?.aplicatio_jobs)
@@ -70,8 +68,9 @@ const Home = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-      
+
       <NapBar nameUser={jobAplication.name} />
+
       <main>
         {/* Hero unit */}
         <Box
@@ -124,8 +123,9 @@ const Home = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={handleOpen} size="small">Detalles</Button>
-                    <ModalDetail openModal={handleOpen} />
+                    <Button onClick={() => { handleOpen() }} size="small">Detalles</Button>
+
+                    <ModalDetail openModal={open} />
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>

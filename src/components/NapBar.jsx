@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const NapBar = ({ nameUser }) => {
 
-  const pages = ['Empresas', 'Pricing', 'Blog'];
+  const pages = ['Empresas', 'Reclutadores'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);

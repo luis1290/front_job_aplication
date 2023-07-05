@@ -4,8 +4,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 
-const ModalDetail = ({openModal}) => {
-
+const ModalDetail = ({ openModal }) => {
+  
+console.log(openModal)
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -15,20 +16,20 @@ const ModalDetail = ({openModal}) => {
   };
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
-        <Box sx={{  width: 400 }}>
-          <h2 id="parent-modal-title">Text in a modal</h2>
-          <p id="parent-modal-description">
+        <Box >
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-          {/* <ChildModal /> */}
-          <Button onClick={handleClose}>Close Child Modal</Button>
+          </Typography>
         </Box>
       </Modal>
     </div>
