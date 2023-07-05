@@ -47,9 +47,12 @@ const Home = () => {
   const dispatch = useDispatch();
   const jobAplication = useSelector((state) => state.jobAplication);
   const [open, setOpen] = useState(false);
+  const aplication = useSelector((state) => state?.jobAplication?.aplicatio_jobs);
 
   const id = localStorage.getItem("id")
-  const aplication = jobAplication?.aplicatio_jobs
+
+  const [apli, setApli] = useState([]);
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,20 +62,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    console.log(aplication)
+    setApli(jobAplication?.aplicatio_jobs)
+    console.log(apli)
     dispatch(getJobAplicationThunk(id));
-  }, []);
+  }, [apli]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
-
-      {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} */}
-
+      
       <NapBar nameUser={jobAplication.name} />
       <main>
         {/* Hero unit */}
@@ -107,21 +105,22 @@ const Home = () => {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {jobAplication?.aplicatio_jobs?.map((apl) => (
+              <Grid item key={apl?.name} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  elevation={4}
                 >
                   <CardMedia
                     component="div"
                   >
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Nombre de aplicación
+                    <Typography textAlign="center" key={apl?.name} gutterBottom variant="h5" component="h2">
+                      {apl?.name}
                     </Typography>
                   </CardMedia>
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography>
-                      Descripción de la aplicación
+                    <Typography textAlign="center">
+                      {apl.description}
                     </Typography>
                   </CardContent>
                   <CardActions>

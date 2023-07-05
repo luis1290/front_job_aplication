@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NapBar = ({ nameUser }) => {
 
@@ -21,6 +21,7 @@ const NapBar = ({ nameUser }) => {
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -149,21 +150,19 @@ const NapBar = ({ nameUser }) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} */}
               <MenuItem onClick={handleCloseUserMenu}>
-                <Link className='linkMenu'>
-                  <Typography textAlign="center" >
-                    {nameUser}
-                  </Typography>
-                  <Typography textAlign="center" >
-                    cerrar secion
-                  </Typography>
-
-                </Link>
+                <Box>
+                  <Link className='linkMenu'>
+                    <Typography textAlign="center" >
+                      {nameUser}
+                    </Typography>
+                  </Link>
+                  <Button className="btn__logOut linkMenu" onClick={() => {
+                    localStorage.clear("token")
+                    localStorage.clear("id")
+                    navigate("/loguin")
+                  }}>Cerrar seción</Button>
+                </Box>
               </MenuItem>
             </Menu>
           </Box>

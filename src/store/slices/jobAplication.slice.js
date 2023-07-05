@@ -5,7 +5,7 @@ import axios from 'axios';
 // Cambiamos mySlice por el nombre de nuestro slice (usersSlice, toDosSlice...)
 export const jobAplicationSlice = createSlice({
   name: 'jobAplication',
-  initialState: [],
+  initialState: {},
   reducers: {
     setJobAplication: (state, action) => {
       return action.payload
