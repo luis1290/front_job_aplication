@@ -18,6 +18,7 @@ const token = localStorage.getItem("token")
 export const getJobAplicationThunk = (id) => dispatch => {
   axios.get(`http://localhost:8000/users/${id}`, getConfig())
     .then((resp) => {
+      // console.log(resp.data)
       dispatch(setJobAplication(resp.data))
     })
     .catch(error => {

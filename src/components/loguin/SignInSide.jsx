@@ -139,7 +139,6 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange }) => {
                 onClick={() => {
                   if (validateImput()) {
                     onSubmit(formData)
-                    console.log(formData)
                   }
                 }}
               >

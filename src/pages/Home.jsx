@@ -18,11 +18,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ModalDetail from '../components/ModalDetail';
+import ModalCreatAplication from '../components/ModalCreatAplication';
 import AdbIcon from '@mui/icons-material/Adb';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
+import { Image } from '@mui/icons-material';
+import DetailtAplication from '../components/DetailtAplication';
 
 function Copyright() {
   return (
@@ -52,16 +54,17 @@ const Home = () => {
   const id = localStorage.getItem("id")
 
   const [apli, setApli] = useState([]);
+  const [avatar, setAbatar] = useState('')
 
 
   const handleOpen = () => {
     setOpen(!open);
   };
- 
+
 
   useEffect(() => {
     setApli(jobAplication?.aplicatio_jobs)
-    console.log(apli)
+    setAbatar(jobAplication.url_avatar)
     dispatch(getJobAplicationThunk(id));
   }, [apli]);
 
@@ -69,7 +72,8 @@ const Home = () => {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
 
-      <NapBar nameUser={jobAplication.name} />
+
+      <NapBar nameUser={jobAplication.name} urlUser={avatar} />
 
       <main>
         {/* Hero unit */}
@@ -97,7 +101,7 @@ const Home = () => {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Agregar aplicación</Button>
+              <ModalCreatAplication />
             </Stack>
           </Container>
         </Box>
@@ -105,7 +109,7 @@ const Home = () => {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {jobAplication?.aplicatio_jobs?.map((apl) => (
-              <Grid item key={apl?.name} xs={12} sm={6} md={4}>
+              <Grid item key={apl?.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                   elevation={4}
@@ -113,7 +117,7 @@ const Home = () => {
                   <CardMedia
                     component="div"
                   >
-                    <Typography textAlign="center" key={apl?.name} gutterBottom variant="h5" component="h2">
+                    <Typography textAlign="center" key={apl?.id} gutterBottom variant="h5" component="h2">
                       {apl?.name}
                     </Typography>
                   </CardMedia>
@@ -123,9 +127,8 @@ const Home = () => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={() => { handleOpen() }} size="small">Detalles</Button>
-
-                    <ModalDetail openModal={open} />
+                    {/* <Button size="small">Detalles</Button> */}
+                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location = {apl?.company?.location} />
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>
@@ -137,6 +140,7 @@ const Home = () => {
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,14 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-const NapBar = ({ nameUser }) => {
+const NapBar = ({ nameUser, urlUser }) => {
 
   const pages = ['Empresas', 'Reclutadores'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
@@ -37,6 +38,11 @@ const NapBar = ({ nameUser }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  useEffect(() => {
+    console.log(urlUser)
+  }, );
+
 
   return (
     <AppBar position="static">
@@ -131,7 +137,7 @@ const NapBar = ({ nameUser }) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={urlUser} />
               </IconButton>
             </Tooltip>
             <Menu
