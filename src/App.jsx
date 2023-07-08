@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import ProtectedRoutes from './components/ProtectedRoutes'
+import Companies from './pages/Companies'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -23,6 +24,7 @@ function App() {
 
           <Route element={<ProtectedRoutes />}>
             <Route path='/home' element={<Home />} />
+            <Route path='/companies' element={<Companies />} />
           </Route>
         </Routes>
       </BrowserRouter>
