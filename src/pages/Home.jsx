@@ -1,7 +1,5 @@
-// import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
+
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -10,20 +8,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ModalCreatAplication from '../components/ModalCreatAplication';
-import AdbIcon from '@mui/icons-material/Adb';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
-import { Image } from '@mui/icons-material';
 import DetailtAplication from '../components/DetailtAplication';
 
 function Copyright() {
@@ -49,11 +42,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const jobAplication = useSelector((state) => state.jobAplication);
   const [open, setOpen] = useState(false);
-  const aplication = useSelector((state) => state?.jobAplication?.aplicatio_jobs);
+
 
   const id = localStorage.getItem("id")
-
-  const [apli, setApli] = useState([]);
   const [avatar, setAbatar] = useState('')
 
 
@@ -63,10 +54,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    setApli(jobAplication?.aplicatio_jobs)
     setAbatar(jobAplication.url_avatar)
     dispatch(getJobAplicationThunk(id));
-  }, [apli]);
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>

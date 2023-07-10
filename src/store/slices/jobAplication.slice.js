@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getConfig from '../../helpers/getConfig';
 import axios from 'axios';
+import { setIsLoading } from './isLoading.slice';
 
 // Cambiamos mySlice por el nombre de nuestro slice (usersSlice, toDosSlice...)
 export const jobAplicationSlice = createSlice({
@@ -16,6 +17,7 @@ export const jobAplicationSlice = createSlice({
 const token = localStorage.getItem("token")
 
 export const getJobAplicationThunk = (id) => dispatch => {
+  dispatch(setIsLoading(true));
   axios.get(`http://localhost:8000/users/${id}`, getConfig())
     .then((resp) => {
       // console.log(resp.data)
@@ -30,6 +32,7 @@ export const getJobAplicationThunk = (id) => dispatch => {
         console.log(error)
       }
     })
+    .finally(() => dispatch(setIsLoading(false)))
 }
 
 

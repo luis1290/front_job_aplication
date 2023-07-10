@@ -1,6 +1,5 @@
-import AppBar from '@mui/material/AppBar';
+
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -9,21 +8,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Avatar, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ModalCreatAplication from '../components/ModalCreatAplication';
-import AdbIcon from '@mui/icons-material/Adb';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
-import { Image } from '@mui/icons-material';
-import DetailtAplication from '../components/DetailtAplication';
+import { getCompaniesThunk } from '../store/slices/companies.slice';
+import ModalCreatCompany from '../components/ModalCreateCompany';
 
 function Copyright() {
   return (
@@ -46,20 +40,22 @@ const defaultTheme = createTheme();
 const Companies = () => {
 
   const dispatch = useDispatch();
-  const jobAplication = useSelector((state) => state.jobAplication);
-  const [open, setOpen] = useState(false);
-  const aplication = useSelector((state) => state?.jobAplication?.aplicatio_jobs);
+  const jobAplication = useSelector((state) => state?.jobAplication);
+
+  const companiesArray = useSelector((state) => state?.companies);
+ 
+
 
   const id = localStorage.getItem("id")
 
-  const [apli, setApli] = useState([]);
+  
   const [avatar, setAbatar] = useState('')
 
   useEffect(() => {
-    setApli(jobAplication?.aplicatio_jobs)
     setAbatar(jobAplication.url_avatar)
+    dispatch(getCompaniesThunk())
     dispatch(getJobAplicationThunk(id));
-  }, [apli]);
+  }, []);
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -92,15 +88,15 @@ const Companies = () => {
               spacing={2}
               justifyContent="center"
             >
-              <ModalCreatAplication />
+              <ModalCreatCompany />
             </Stack>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((cards) => (
-              <Grid item key={cards} xs={12} sm={6} md={4}>
+            {Array.isArray(companiesArray) ? companiesArray?.map((company) => (
+              <Grid item key={company?.id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                   elevation={4}
@@ -108,24 +104,26 @@ const Companies = () => {
                   <CardMedia
                     component="div"
                   >
-                    <Typography textAlign="center" key={cards} gutterBottom variant="h5" component="h2">
-                      {cards}
+                    <Typography textAlign="center" key={company?.id} gutterBottom variant="h5" component="h2">
+                      {company?.name}
                     </Typography>
                   </CardMedia>
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography textAlign="center">
-                      {cards}
+                      Email: {company?.email}
+                    </Typography>
+                    <Typography textAlign="center">
+                      Ubucación: {company?.location}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    {/* <Button size="small">Detalles</Button> */}
-
+                    <Button size="small">Detalles</Button>
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>
                 </Card>
               </Grid>
-            ))}
+            )) : null}
           </Grid>
         </Container>
       </main>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import getConfig from '../../helpers/getConfig';
 import axios from 'axios';
+import { setIsLoading } from './isLoading.slice';
 
 // Cambiamos mySlice por el nombre de nuestro slice (usersSlice, toDosSlice...)
 export const companiesSlice = createSlice({
@@ -14,9 +15,11 @@ export const companiesSlice = createSlice({
 })
 
 export const getCompaniesThunk = () => dispatch => {
+  dispatch(setIsLoading(true));
+
   axios.get(`http://localhost:8000/getallcompanies`)
     .then((resp) => {
-      // console.log(resp.data)
+      console.log(resp.data)
       dispatch(setCompanies(resp.data))
     })
     .catch(error => {
@@ -28,6 +31,7 @@ export const getCompaniesThunk = () => dispatch => {
         console.log(error)
       }
     })
+    .finally(() => dispatch(setIsLoading(false)))
 }
 
 export const { setCompanies } = companiesSlice.actions;

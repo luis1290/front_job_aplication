@@ -99,7 +99,12 @@ const NapBar = ({ nameUser, urlUser }) => {
 
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link to={'/companies'}>Empresas</Link>
+                  <Link className='linkMenu' to={'/'}>Inicio</Link>
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link className='linkMenu' to={'/companies'}>Empresas</Link>
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
