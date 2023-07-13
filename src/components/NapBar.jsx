@@ -49,6 +49,7 @@ const NapBar = ({ nameUser, urlUser }) => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <box-icon name='briefcase-alt'></box-icon>
           <Typography
             variant="h6"
             noWrap
@@ -108,7 +109,9 @@ const NapBar = ({ nameUser, urlUser }) => {
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Reclutadores</Typography>
+                <Typography textAlign="center">
+                  <Link className='linkMenu' to={'/recluiters'}>Reclutadores</Link>
+                </Typography>
               </MenuItem>
             </Menu>
           </Box>
@@ -132,7 +135,7 @@ const NapBar = ({ nameUser, urlUser }) => {
             Aplicaciones
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -140,7 +143,25 @@ const NapBar = ({ nameUser, urlUser }) => {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
+
+            <Box sx={{ marginRight: '10px' }}>
+              <Link to={'/companies'} className='linkMenu'>
+                <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
+                  Empresas
+                </Typography>
+              </Link>
+            </Box>
+
+            <Box>
+              <Link to={'/recluiters'} className='linkMenu'>
+                <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
+                  Reclutadores
+                </Typography>
+              </Link>
+
+            </Box>
+
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

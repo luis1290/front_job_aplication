@@ -13,6 +13,7 @@ import Companies from './pages/Companies'
 import Loader from './components/Loader'
 import { useSelector } from 'react-redux'
 import Index from './pages/Index'
+import Recluiters from './pages/Recluiters'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,7 +33,7 @@ function App() {
 
           <Route element={<ProtectedRoutes />}>
             <Route path='/' element={<Home />} />
-            {/* <Route path='/home' element={<Home />} /> */}
+            <Route path='/recluiters' element={<Recluiters />} /> 
             <Route path='/companies' element={<Companies />} />
           </Route>
 
