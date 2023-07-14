@@ -25,7 +25,7 @@ export const getJobAplicationThunk = (id) => dispatch => {
     })
     .catch(error => {
       if (token) {
-        console.log("State 200")
+        console.log(error.response.data)
       } else if (token === null) {
         console.log("State 403, However, you just have to log in to solve it. :)")
       } else {

@@ -13,7 +13,7 @@ import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField,
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-const RegisterUser = ({ clickableText, path, onSubmit, onChange }) => {
+const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -82,7 +82,7 @@ const RegisterUser = ({ clickableText, path, onSubmit, onChange }) => {
   const defaultTheme = createTheme();
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeGlobal}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid

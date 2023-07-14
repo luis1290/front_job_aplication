@@ -26,6 +26,19 @@
 .linkMenu {
   text-decoration: none;
   color: black;
+  padding: 15px;
+}
+
+.linkMenuDark {
+  text-decoration: none;
+   color: white; 
+  padding: 15px;
+}
+
+.linkIcon {
+  text-decoration: none;
+  color: white;
+  padding: 15px;
 }
 
 .textArea {

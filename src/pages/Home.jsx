@@ -11,13 +11,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+import { useEffect, useMemo, useState } from 'react';
 import ModalCreatAplication from '../components/ModalCreatAplication';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 import DetailtAplication from '../components/DetailtAplication';
+import { IconButton } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 function Copyright() {
   return (
@@ -38,14 +41,15 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const defaultTheme = createTheme();
 
 
-const Home = () => {
+const Home = ({ themeGlobal }) => {
   const dispatch = useDispatch();
   const jobAplication = useSelector((state) => state.jobAplication);
   const [open, setOpen] = useState(false);
 
-
+  
   const id = localStorage.getItem("id")
   const [avatar, setAbatar] = useState('')
+  const [name, setName] = useState('')
 
 
   const handleOpen = () => {
@@ -53,17 +57,19 @@ const Home = () => {
   };
 
 
+
   useEffect(() => {
-    setAbatar(jobAplication.url_avatar)
+    setAbatar(jobAplication?.url_avatar)
+    setName(jobAplication?.name)
     dispatch(getJobAplicationThunk(id));
   }, []);
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeGlobal}>
       <CssBaseline />
 
 
-      <NapBar nameUser={jobAplication.name} urlUser={avatar} />
+      <NapBar nameUser={jobAplication?.name} urlUser={avatar} themeGlobal={themeGlobal} />
 
       <main>
         {/* Hero unit */}
@@ -118,7 +124,7 @@ const Home = () => {
                   </CardContent>
                   <CardActions>
                     {/* <Button size="small">Detalles</Button> */}
-                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location = {apl?.company?.location} />
+                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>

@@ -13,7 +13,7 @@ import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField,
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
-const LoguinForm = ({ clickableText, path, onSubmit, onChange }) => {
+const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) => {
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -60,7 +60,7 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange }) => {
   const defaultTheme = createTheme();
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeGlobal}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid

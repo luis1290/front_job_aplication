@@ -1,10 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
-import CreateAplication from './CreateAplication';
-import CreateCompany from './CreateCompnay';
 import CreateRecluter from './CreateRecluter';
 import Grid from '@mui/material/Grid';
 
@@ -37,7 +34,7 @@ const ModalCreateRecluter = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} >
-          <Grid xs={12} sm={12} md={12}>
+          <Grid >
             <CreateRecluter />
             <Button onClick={handleOpen}
               fullWidth

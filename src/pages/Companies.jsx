@@ -37,27 +37,28 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const Companies = () => {
+const Companies = ({ themeGlobal }) => {
 
   const dispatch = useDispatch();
   const jobAplication = useSelector((state) => state?.jobAplication);
 
   const companiesArray = useSelector((state) => state?.companies);
- 
+
 
 
   const id = localStorage.getItem("id")
 
-  
+
   const [avatar, setAbatar] = useState('')
 
   useEffect(() => {
+    console.log(themeGlobal)
     setAbatar(jobAplication.url_avatar)
     dispatch(getCompaniesThunk())
     dispatch(getJobAplicationThunk(id));
   }, []);
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeGlobal}>
       <CssBaseline />
 
       <NapBar nameUser={jobAplication.name} urlUser={avatar} />

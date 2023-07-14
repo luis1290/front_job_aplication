@@ -5,8 +5,9 @@ import AuthLayout from './AuthLayout';
 import RegisterUser from '../components/loguin/RegisterUser';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { ThemeProvider } from '@emotion/react';
 
-const LoguinPage = () => {
+const LoguinPage = ({ themeGlobal }) => {
 
   const navigate = useNavigate()
 
@@ -25,10 +26,11 @@ const LoguinPage = () => {
     console.log(data)
   }
   return (
-    <Box >
-      <LoguinForm clickableText="Registrate" path="/register" onSubmit={handleSubmit} onChange={handleChage} />
-    </Box>
-
+    <ThemeProvider theme={themeGlobal}>
+      <Box >
+        <LoguinForm themeGlobal={themeGlobal} clickableText="Registrate" path="/register" onSubmit={handleSubmit} onChange={handleChage} />
+      </Box>
+    </ThemeProvider>
   );
 };
 

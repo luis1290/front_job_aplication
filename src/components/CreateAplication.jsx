@@ -92,7 +92,6 @@ const CreateAplication = () => {
             >
               Agregar aplicación
             </Button>
-            
           </Box>
         </Box>
       </Container>

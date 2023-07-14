@@ -4,7 +4,7 @@ import RegisterUser from '../components/loguin/RegisterUser';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 
-const RegisterPage = () => {
+const RegisterPage = ({themeGlobal}) => {
   const navigate = useNavigate()
 
   const handleSubmit = (data) => {
@@ -24,7 +24,7 @@ const RegisterPage = () => {
 
   return (
     <Box>
-      <RegisterUser clickableText="Inicia seción" path="/loguin" onSubmit={handleSubmit} onChange={handleChage} />
+      <RegisterUser themeGlobal={themeGlobal} clickableText="Inicia seción" path="/loguin" onSubmit={handleSubmit} onChange={handleChage} />
     </Box>
   );
 };

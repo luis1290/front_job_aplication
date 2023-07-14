@@ -11,18 +11,32 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
+import { createTheme } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { setDark } from '../store/slices/dark.slice';
+import Link from '@mui/material/Link';
 
-const NapBar = ({ nameUser, urlUser }) => {
+const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
+  const dispatch = useDispatch();
 
-  const pages = ['Empresas', 'Reclutadores'];
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+
+  const jobAplication = useSelector((state) => state.jobAplication);
+  const id = localStorage.getItem("id")
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate()
+
+  const handleClick = (route) => {
+    // Navegar a otra ruta
+    navigate(route);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,34 +54,48 @@ const NapBar = ({ nameUser, urlUser }) => {
   };
 
   useEffect(() => {
-    console.log(urlUser)
-  },);
+    dispatch(getJobAplicationThunk(id));
+
+  }, [themeGlobal]);
+
+  function stringToColor(string) {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    if (typeof string === 'string') {
+      for (i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+      }
+    }
+
+
+    let color = '#';
+
+    for (i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 0xff;
+      color += `00${value.toString(16)}`.slice(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return color;
+  }
+
+
+  function stringAvatar(name) {
+    return {
+      sx: {
+        bgcolor: stringToColor(name),
+      },
+      children: typeof name === 'string' ? `${name.split(' ')[0][0]}${name.split(' ')[1][0]}` : null
+    };
+  }
 
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <box-icon name='briefcase-alt'></box-icon>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Job Aplication
-          </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -78,7 +106,9 @@ const NapBar = ({ nameUser, urlUser }) => {
               color="inherit"
             >
               <MenuIcon />
+
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -100,22 +130,32 @@ const NapBar = ({ nameUser, urlUser }) => {
 
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link className='linkMenu' to={'/'}>Inicio</Link>
+                  <Link onClick={() => handleClick('/')} color="inherit" underline="none">
+                    {'Inicio'}
+                  </Link>
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link className='linkMenu' to={'/companies'}>Empresas</Link>
+                  <Link onClick={() => handleClick('/companies')} color="inherit" underline="none">
+                    {'Empresas'}
+                  </Link>
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link className='linkMenu' to={'/recluiters'}>Reclutadores</Link>
+                  <Link onClick={() => handleClick('/recluiters')} color="inherit" underline="none">
+                    {'Reclutadores'}
+                  </Link>
                 </Typography>
               </MenuItem>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+          <Typography textAlign="center">
+            <Link className='linkIcon' to={'/'}><i className='bx bxs-briefcase'></i></Link>
+          </Typography>
+
           <Typography
             variant="h5"
             noWrap
@@ -134,19 +174,17 @@ const NapBar = ({ nameUser, urlUser }) => {
           >
             Aplicaciones
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {/* {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
-            ))} */}
 
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Box sx={{ marginRight: '10px' }}>
-              <Link to={'/companies'} className='linkMenu'>
+              <Link onClick={() => handleClick('/')} className='linkMenu' underline="none" color="inherit">
+                <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
+                  Inicio
+                </Typography>
+              </Link>
+            </Box>
+            <Box sx={{ marginRight: '10px' }}>
+              <Link onClick={() => handleClick('/companies')} className='linkMenu' underline="none" color="inherit">
                 <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
                   Empresas
                 </Typography>
@@ -154,20 +192,18 @@ const NapBar = ({ nameUser, urlUser }) => {
             </Box>
 
             <Box>
-              <Link to={'/recluiters'} className='linkMenu'>
+              <Link onClick={() => handleClick('/recluiters')} className='linkMenu' underline="none" color="inherit">
                 <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
                   Reclutadores
                 </Typography>
               </Link>
-
             </Box>
-
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={urlUser} />
+                <Avatar {...stringAvatar(nameUser)} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -188,7 +224,7 @@ const NapBar = ({ nameUser, urlUser }) => {
             >
               <MenuItem onClick={handleCloseUserMenu}>
                 <Box>
-                  <Link className='linkMenu'>
+                  <Link underline="none" color="inherit">
                     <Typography textAlign="center" >
                       {nameUser}
                     </Typography>
