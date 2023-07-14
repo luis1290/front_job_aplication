@@ -11,7 +11,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import { Navigate, useNavigate } from 'react-router';
 
 const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) => {
 
@@ -23,6 +25,13 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
   const [formData, setFormData] = useState({ email, password })
   const [emailError, setEmailError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
+  const navigate = useNavigate()
+
+  const handleClick = (route) => {
+    // Navegar a otra ruta
+    console.log(route)
+    navigate(route);
+  };
 
 
   useEffect(() => {
@@ -55,7 +64,7 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
   }
 
 
-  // TODO remove, this demo shouldn't need to reset the theme.
+  // TODO remove, this demo shouldn't need to reset the theme. condición ? expresiónSiEsVerdadera : expresiónSiEsFalsa;
 
   const defaultTheme = createTheme();
 
@@ -69,7 +78,7 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(../public/Portada-tipos-de-entrevistas.jpg)',
+            backgroundImage: `url(../public/${themeGlobal.palette.mode === 'dark' ? 'dark_theme.jpg' : 'litgth_theme.jpg'})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -146,17 +155,17 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Button color="inherit" underline="none">
                     contraseña perdida?
-                  </Link>
+                  </Button>
                 </Grid>
                 <Grid item>
-                  <Link to={path} variant="body2">
+                  <Button onClick={() => handleClick('/register')} color="inherit" underline="none">
                     {clickableText}
-                  </Link>
+                  </Button>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>

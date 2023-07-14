@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-const CreateRecluter = () => {
+const CreateRecluter = ({ themeGlobal }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,7 +46,7 @@ const CreateRecluter = () => {
     });
   };
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={themeGlobal}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

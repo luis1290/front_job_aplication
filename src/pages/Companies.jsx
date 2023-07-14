@@ -89,7 +89,7 @@ const Companies = ({ themeGlobal }) => {
               spacing={2}
               justifyContent="center"
             >
-              <ModalCreatCompany />
+              <ModalCreatCompany themeGlobal={themeGlobal} />
             </Stack>
           </Container>
         </Box>
@@ -118,7 +118,6 @@ const Companies = ({ themeGlobal }) => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Detalles</Button>
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>

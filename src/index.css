@@ -29,6 +29,10 @@
   padding: 15px;
 }
 
+Link:hover {
+  color: orange;
+}
+
 .linkMenuDark {
   text-decoration: none;
    color: white; 
@@ -101,6 +105,7 @@
 
 .DetailModal {
   position: absolute;
+  border-radius: 15px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

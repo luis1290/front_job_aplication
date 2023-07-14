@@ -24,9 +24,6 @@ import Link from '@mui/material/Link';
 const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
   const dispatch = useDispatch();
 
-
-
-  const jobAplication = useSelector((state) => state.jobAplication);
   const id = localStorage.getItem("id")
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -81,7 +78,6 @@ const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
     return color;
   }
 
-
   function stringAvatar(name) {
     return {
       sx: {
@@ -90,7 +86,6 @@ const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
       children: typeof name === 'string' ? `${name.split(' ')[0][0]}${name.split(' ')[1][0]}` : null
     };
   }
-
 
   return (
     <AppBar position="static">
@@ -152,38 +147,27 @@ const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
             </Menu>
           </Box>
 
-          <Typography textAlign="center">
-            <Link className='linkIcon' to={'/'}><i className='bx bxs-briefcase'></i></Link>
-          </Typography>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Aplicaciones
-          </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Box sx={{ marginRight: '10px' }}>
+            <Box sx={{
+              marginRight: '10px',
+              '&:hover': {
+                backgroundColor: 'inherit',
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}>
               <Link onClick={() => handleClick('/')} className='linkMenu' underline="none" color="inherit">
                 <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
                   Inicio
                 </Typography>
               </Link>
             </Box>
-            <Box sx={{ marginRight: '10px' }}>
+            <Box sx={{
+              marginRight: '10px',
+              '&:hover': {
+                backgroundColor: 'inherit',
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}>
               <Link onClick={() => handleClick('/companies')} className='linkMenu' underline="none" color="inherit">
                 <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
                   Empresas
@@ -191,7 +175,13 @@ const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
               </Link>
             </Box>
 
-            <Box>
+            <Box sx={{
+              marginRight: '10px',
+              '&:hover': {
+                backgroundColor: 'inherit',
+                opacity: [0.9, 0.8, 0.7],
+              },
+            }}>
               <Link onClick={() => handleClick('/recluiters')} className='linkMenu' underline="none" color="inherit">
                 <Typography textAlign="center" sx={{ my: 2, color: 'white', display: 'block' }} >
                   Reclutadores

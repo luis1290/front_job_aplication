@@ -6,7 +6,7 @@ import { useState } from 'react';
 import CreateAplication from './CreateAplication';
 import CreateCompany from './CreateCompnay';
 
-const ModalCreatCompany = () => {
+const ModalCreatCompany = ({ themeGlobal }) => {
 
 
   const [open, setOpen] = useState(false);
@@ -34,15 +34,15 @@ const ModalCreatCompany = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box   sx={style} >
-          <CreateCompany />
+        <Box sx={style} >
+          <CreateCompany themeGlobal={themeGlobal} />
           <Button onClick={handleOpen}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              cerrar
-            </Button>
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            cerrar
+          </Button>
         </Box>
       </Modal>
     </div>

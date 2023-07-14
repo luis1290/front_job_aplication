@@ -11,9 +11,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) => {
+const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) => {
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -29,6 +29,14 @@ const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) =
   const [passwordError, setPasswordError] = useState(false)
   const [confirmPasswordError, setConfirmPasswordError] = useState(false)
 
+  const navigate = useNavigate()
+
+  const handleClick = (route) => {
+    // Navegar a otra ruta
+    console.log(route)
+    navigate(route);
+  };
+
 
 
 
@@ -39,7 +47,7 @@ const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) =
     setConfirmPasswordError(!formData.confirmPassword)
     // devuelve falso si hay errores 
     //devuelve true si no hay errores
-   
+
     return formData.name && formData.email && formData.password && formData.confirmPassword
   }
 
@@ -91,7 +99,7 @@ const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) =
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(../public/Portada-tipos-de-entrevistas.jpg)',
+            backgroundImage: `url(../public/${themeGlobal.palette.mode === 'dark' ? 'dark_theme.jpg' : 'litgth_theme.jpg'})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -201,11 +209,15 @@ const RegisterUser = ({themeGlobal, clickableText, path, onSubmit, onChange }) =
                 Registrarce
               </Button>
               <Grid item>
-                <Link to={path} variant="body2">
+                {/* <Link to={path} variant="body2">
                   {clickableText}
-                </Link>
+                </Link> */}
+
+                <Button onClick={() => handleClick('/loguin')} color="inherit" underline="none">
+                  {clickableText}
+                </Button>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>

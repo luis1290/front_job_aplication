@@ -59,7 +59,7 @@ function App() {
           <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
             {themeGlobal.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          <Typography>Samus Theme</Typography>
+          <Typography>Modo {mode}</Typography>
         </Toolbar>
 
         <Routes>

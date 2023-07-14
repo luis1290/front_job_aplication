@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import CreateAplication from './CreateAplication';
 
-const ModalCreatAplication = () => {
+const ModalCreatAplication = ({ themeGlobal }) => {
 
 
   const [open, setOpen] = useState(false);
@@ -33,15 +33,15 @@ const ModalCreatAplication = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box   sx={style} >
-          <CreateAplication />
+        <Box sx={style} >
+          <CreateAplication themeGlobal={themeGlobal} />
           <Button onClick={handleOpen}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              cerrar
-            </Button>
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            cerrar
+          </Button>
         </Box>
       </Modal>
     </div>

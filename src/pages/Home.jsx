@@ -46,7 +46,7 @@ const Home = ({ themeGlobal }) => {
   const jobAplication = useSelector((state) => state.jobAplication);
   const [open, setOpen] = useState(false);
 
-  
+
   const id = localStorage.getItem("id")
   const [avatar, setAbatar] = useState('')
   const [name, setName] = useState('')
@@ -97,7 +97,7 @@ const Home = ({ themeGlobal }) => {
               spacing={2}
               justifyContent="center"
             >
-              <ModalCreatAplication />
+              <ModalCreatAplication themeGlobal={themeGlobal} />
             </Stack>
           </Container>
         </Box>
@@ -122,9 +122,9 @@ const Home = ({ themeGlobal }) => {
                       {apl.description}
                     </Typography>
                   </CardContent>
-                  <CardActions>
+                  <CardActions >
                     {/* <Button size="small">Detalles</Button> */}
-                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
+                    <DetailtAplication    key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>

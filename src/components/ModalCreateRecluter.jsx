@@ -5,7 +5,7 @@ import { useState } from 'react';
 import CreateRecluter from './CreateRecluter';
 import Grid from '@mui/material/Grid';
 
-const ModalCreateRecluter = () => {
+const ModalCreateRecluter = ({ themeGlobal }) => {
 
 
   const [open, setOpen] = useState(false);
@@ -35,7 +35,7 @@ const ModalCreateRecluter = () => {
       >
         <Box sx={style} >
           <Grid >
-            <CreateRecluter />
+            <CreateRecluter themeGlobal={themeGlobal} />
             <Button onClick={handleOpen}
               fullWidth
               variant="contained"
