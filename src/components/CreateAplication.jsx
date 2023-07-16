@@ -42,8 +42,8 @@ const CreateAplication = ({ themeGlobal }) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+      email: data.get('nameAplication'),
+      password: data.get('description'),
     });
   };
   return (
@@ -64,7 +64,7 @@ const CreateAplication = ({ themeGlobal }) => {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={11} sm={11} md={11}>
                 <TextField
                   autoComplete="given-name"
                   name="nameAplication"
@@ -75,10 +75,16 @@ const CreateAplication = ({ themeGlobal }) => {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={6} sm={6}>
-                <TextareaAutosize className='textArea' aria-label="empty textarea" placeholder="Descripción" />
+              <Grid item xs={11} sm={11} md={11}>
+                <TextareaAutosize
+                  className='textArea'
+                  name="description"
+                  aria-label="empty textarea"
+                  placeholder="Descripción"
+                  id="description"
+                  />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={11} sm={11} md={11}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker />
                 </LocalizationProvider>
