@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,9 +16,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TextareaAutosize } from '@mui/material';
+import { Collapse, InputLabel, List, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material';
 import { styled } from '@mui/system';
-
+import { useEffect, useState } from 'react';
+import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCompaniesThunk } from '../store/slices/companies.slice';
 
 function Copyright(props) {
   return (
@@ -38,17 +42,67 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 const CreateAplication = ({ themeGlobal }) => {
+
+  const dispatch = useDispatch();
+  const companiesArray = useSelector((state) => state?.companies);
+  const id = localStorage.getItem("id")
+
+  const [company, setCompany] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    dispatch(getCompaniesThunk())
+  }, [company, selectedDate]);
+
+
+  const handleDateChange = (date) => {
+
+    setSelectedDate(`${date.$D}/${date.$M}/${date.$y}`);
+    console.log(selectedDate)
+  };
+
+
+
+  const handleChange = (event) => {
+    setCompany(event.target.value);
+  };
+
+  const [formData, setFormData] = useState({});
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('nameAplication'),
-      password: data.get('description'),
+    console.log('datos pusos sin el estado', {
+      name: data.get('nameAplication'),
+      description: data.get('description'),
+      date_share: selectedDate,
+      uer_id: parseInt(id, 10),
+      company_id: company
     });
+
+    setFormData({
+      name: data.get('nameAplication'),
+      description: data.get('description'),
+      date_share: selectedDate,
+      uer_id: parseInt(id, 10),
+      company_id: company
+    })
+
+    console.log(formData)
   };
+  const [open, setOpen] = useState(true);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+
+
+
+
   return (
     <ThemeProvider theme={themeGlobal}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <Box
           sx={{
@@ -57,6 +111,7 @@ const CreateAplication = ({ themeGlobal }) => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
+
         >
 
           <Typography component="h1" variant="h5">
@@ -82,12 +137,33 @@ const CreateAplication = ({ themeGlobal }) => {
                   aria-label="empty textarea"
                   placeholder="Descripción"
                   id="description"
-                  />
+                  color="inherit"
+                />
               </Grid>
               <Grid item xs={11} sm={11} md={11}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker />
+                  <DatePicker
+                    label="Fecha"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
                 </LocalizationProvider>
+              </Grid>
+
+              <Grid item xs={11} sm={11} md={11}>
+                <InputLabel id="demo-simple-select-label">Empresas</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={company}
+                  label="Age"
+                  onChange={handleChange}
+                >
+                  {Array.isArray(companiesArray) ? companiesArray?.map((company) => (
+                    <MenuItem id="selectCompany" key={company?.id} value={company?.id}>{company?.name}</MenuItem>
+                  )) : null}
+                </Select>
               </Grid>
             </Grid>
             <Button

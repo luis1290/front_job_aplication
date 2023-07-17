@@ -97,7 +97,12 @@ const Home = ({ themeGlobal }) => {
               spacing={2}
               justifyContent="center"
             >
-              <ModalCreatAplication themeGlobal={themeGlobal} />
+              <Box xs={12} sm={6} md={4}>
+                <Grid>
+                  <ModalCreatAplication themeGlobal={themeGlobal} />
+                </Grid>
+              </Box>
+
             </Stack>
           </Container>
         </Box>
@@ -124,7 +129,7 @@ const Home = ({ themeGlobal }) => {
                   </CardContent>
                   <CardActions >
                     {/* <Button size="small">Detalles</Button> */}
-                    <DetailtAplication    key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
+                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
                     <Button size="small">Editar</Button>
                     <Button size="small">Eliminar</Button>
                   </CardActions>
