@@ -21,6 +21,10 @@ import DetailtAplication from '../components/DetailtAplication';
 import { IconButton } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import getConfig from '../helpers/getConfig';
+import { useNavigate } from 'react-router';
 
 function Copyright() {
   return (
@@ -51,18 +55,42 @@ const Home = ({ themeGlobal }) => {
   const [avatar, setAbatar] = useState('')
   const [name, setName] = useState('')
 
+  const navigate = useNavigate()
+
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
 
+  const deletAplication = (id) => {
+    axios.delete(`http://localhost:8000/deleteaplicationjob/${id}`, getConfig())
+      .then((res) => {
+        console.log(res)
+        // navigate("/")
+        dispatch(getJobAplicationThunk(id));
+        Swal.fire('Aplicacion eliminada con exito')
+      })
+      .catch((error) => {
+        Swal.fire('Error al eliminar la aplicacion', error.response.data.message)
+        console.error(error)
+      });
+
+  }
 
   useEffect(() => {
+    dispatch(getJobAplicationThunk(id));
     setAbatar(jobAplication?.url_avatar)
     setName(jobAplication?.name)
-    dispatch(getJobAplicationThunk(id));
-  }, []);
+    
+  }, [jobAplication?.url_avatar, jobAplication?.name, id, dispatch]);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     dispatch(getJobAplicationThunk(id));
+  //   }
+  // }, [id]);
+
 
   return (
     <ThemeProvider theme={themeGlobal}>
@@ -131,7 +159,7 @@ const Home = ({ themeGlobal }) => {
                     {/* <Button size="small">Detalles</Button> */}
                     <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
                     <Button size="small">Editar</Button>
-                    <Button size="small">Eliminar</Button>
+                    <Button onClick={() => deletAplication(apl?.id)} size="small">Eliminar</Button>
                   </CardActions>
                 </Card>
               </Grid>

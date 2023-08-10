@@ -25,62 +25,48 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCompaniesThunk } from '../store/slices/companies.slice';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import getConfig from '../helpers/getConfig';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router';
+import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+// function Copyright(props) {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Your Website
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-const CreateAplication = ({ themeGlobal }) => {
+const CreateAplication = ({ themeGlobal, setOpen }) => {
 
   const dispatch = useDispatch();
   const companiesArray = useSelector((state) => state?.companies);
   const id = localStorage.getItem("id")
 
+  const navigate = useNavigate()
+
   const [company, setCompany] = useState('');
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  // const { register, handleSubmit, reset } = useForm();
-
-
-
-
+  
   useEffect(() => {
     dispatch(getCompaniesThunk())
-  }, [company, selectedDate]);
-
-
-  const handleDateChange = (date) => {
-
-    setSelectedDate(`${date.$D}/${date.$M}/${date.$y}`);
-    console.log(selectedDate)
-  };
-
-
-
-  
-  const [formData, setFormData] = useState({});
-
-  
+  }, [company, dispatch]);
 
   const [formValues, setFormValues] = useState({
-    nameAplication: '',
+    name: '',
     description: '',
-    fecha: '',
-    company: '',
-    user_id: id
+    date_share: '',
+    company_id: '',
+    uer_id: parseInt(id)
   });
 
   const handleChange = (event) => {
@@ -93,28 +79,21 @@ const CreateAplication = ({ themeGlobal }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Aquí puedes manejar la lógica para enviar los datos del formulario
-    //   axios.post('http://localhost:8000/aplicationjob', { name, descriptionApli, dateApli, id, company })
-    //     .then((res) => {
-    //       console.log(res)
-    //       navigate("/")
-    //     })
-    //     .catch((error) => console.error(error));
+    // Aquí puedes manejar la lógica para enviar los datos del formulario parseInt(numeroComoString);
+    axios.post('http://localhost:8000/aplicationjob', formValues, getConfig())
+      .then((res) => {
+        console.log(res)
+        setOpen()
+        // navigate("/")    dispatch(setJobAplication(res.data));
+        dispatch(getJobAplicationThunk(id));
+        Swal.fire('Aplicacion agregada con exito')
+      })
+      .catch((error) => {
+        Swal.fire('Error al crear la aplicacion')
+        console.error(error)
+      });
     console.log('Valores del formulario:', formValues);
   };
-
-  const [open, setOpen] = useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const submit = data => {
-    console.log(data)
-  }
-
-
-
 
   return (
     <ThemeProvider theme={themeGlobal}>
@@ -138,11 +117,11 @@ const CreateAplication = ({ themeGlobal }) => {
               <Grid item xs={11} sm={11} md={11}>
                 <TextField
                   autoComplete="given-name"
-                  name="nameAplication"
-                  value={formValues.nameAplication}
+                  name="name"
+                  value={formValues.name}
                   required
                   fullWidth
-                  id="nameAplication"
+                  id="name"
                   label="Nombre Aplicación"
                   autoFocus
                   onChange={handleChange}
@@ -166,11 +145,11 @@ const CreateAplication = ({ themeGlobal }) => {
               <Grid item xs={11} sm={11} md={11}>
 
                 <TextField
-                  id="date"
+                  id="date_share"
                   label="fecha"
-                  name="fecha"
+                  name="date_share"
                   type="date"
-                  value={formValues.fecha}
+                  value={formValues.date_share}
                   onChange={handleChange}
                 />
               </Grid>
@@ -179,9 +158,9 @@ const CreateAplication = ({ themeGlobal }) => {
                 <InputLabel id="demo-simple-select-label">Empresas</InputLabel>
                 <Select
                   labelId="company"
-                  id="company"
-                  name="company"
-                  value={formValues.company}
+                  id="company_id"
+                  name="company_id"
+                  value={formValues.company_id}
                   label="Age"
                   onChange={handleChange}
                 >

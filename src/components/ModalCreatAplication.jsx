@@ -34,7 +34,7 @@ const ModalCreatAplication = ({ themeGlobal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} >
-          <CreateAplication themeGlobal={themeGlobal} />
+          <CreateAplication themeGlobal={themeGlobal} setOpen={setOpen} />
           <Button onClick={handleOpen}
             fullWidth
             variant="contained"

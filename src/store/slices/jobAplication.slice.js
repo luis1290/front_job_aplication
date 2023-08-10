@@ -36,6 +36,8 @@ export const getJobAplicationThunk = (id) => dispatch => {
 }
 
 
+
+
 export const { setJobAplication } = jobAplicationSlice.actions;
 
 export default jobAplicationSlice.reducer;
