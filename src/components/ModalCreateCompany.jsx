@@ -35,7 +35,7 @@ const ModalCreatCompany = ({ themeGlobal }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} >
-          <CreateCompany themeGlobal={themeGlobal} />
+          <CreateCompany themeGlobal={themeGlobal} setOpen={setOpen} />
           <Button onClick={handleOpen}
             fullWidth
             variant="contained"

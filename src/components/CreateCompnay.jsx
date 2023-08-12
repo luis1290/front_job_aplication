@@ -18,6 +18,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TextareaAutosize } from '@mui/material';
 import { styled } from '@mui/system';
+import { useState } from 'react';
+import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
+import { getCompaniesThunk } from '../store/slices/companies.slice';
+import axios from 'axios';
+import getConfig from '../helpers/getConfig';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
 
 
 function Copyright(props) {
@@ -37,15 +44,51 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-const CreateCompany = ({ themeGlobal }) => {
+const CreateCompany = ({ themeGlobal, setOpen }) => {
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  const dispatch = useDispatch();
+
+  const [formValues, setFormValues] = useState({
+    name: '',
+    email: '',
+    location: ''
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // Aquí puedes manejar la lógica para enviar los datos del formulario parseInt(numeroComoString);
+    axios.post('http://localhost:8000/companies', formValues)
+      .then((res) => {
+        console.log(res)
+        setOpen()
+        // navigate("/")    dispatch(setJobAplication(res.data));
+        dispatch(getCompaniesThunk())
+        Swal.fire('Aplicacion agregada con exito')
+      })
+      .catch((error) => {
+        Swal.fire('Error al crear la aplicacion')
+        console.error(error)
+      });
+    console.log('Valores del formulario:', formValues);
   };
+
   return (
     <ThemeProvider theme={themeGlobal}>
       <Container component="main" maxWidth="xs">
@@ -62,32 +105,45 @@ const CreateCompany = ({ themeGlobal }) => {
           <Typography component="h1" variant="h5">
             Crear Empresa
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <form onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="nameCompany"
+                  name="name"
                   required
                   fullWidth
-                  id="nameCompany"
+                  id="name"
                   label="Nombre compañia"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="emailCompany"
+                  name="email"
                   required
                   fullWidth
-                  id="emailCompany"
+                  id="email"
                   label="Email de compañia"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={6} sm={6}>
-                <TextareaAutosize className='textArea' aria-label="empty textarea" placeholder="Ubicación" />
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  id="location"
+                  name="location"
+                  label="locacion"
+                  value={formValues.description}
+                  onChange={handleChange}
+                  multiline
+                  rows={4}
+                  autoFocus
+                  fullWidth
+                />
               </Grid>
 
             </Grid>
@@ -100,7 +156,7 @@ const CreateCompany = ({ themeGlobal }) => {
               Agregar Compañia
             </Button>
 
-          </Box>
+          </form>
         </Box>
       </Container>
     </ThemeProvider>

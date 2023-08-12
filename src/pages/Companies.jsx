@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 import { getCompaniesThunk } from '../store/slices/companies.slice';
 import ModalCreatCompany from '../components/ModalCreateCompany';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Copyright() {
   return (
@@ -57,6 +59,23 @@ const Companies = ({ themeGlobal }) => {
     dispatch(getCompaniesThunk())
     dispatch(getJobAplicationThunk(id));
   }, []);
+
+  const deletCompany = (id) => {
+    axios.delete(`http://localhost:8000/delitecompanies/${id}`)
+      .then((res) => {
+        console.log(res)
+        // navigate("/")
+        // dispatch(getJobAplicationThunk(id));
+        dispatch(getCompaniesThunk())
+        Swal.fire('Compañia  eliminada con exito')
+      })
+      .catch((error) => {
+        Swal.fire('Error al eliminar compañia', error.response.data.message)
+        console.error(error)
+      });
+  }
+
+
   return (
     <ThemeProvider theme={themeGlobal}>
       <CssBaseline />
@@ -119,7 +138,7 @@ const Companies = ({ themeGlobal }) => {
                   </CardContent>
                   <CardActions>
                     <Button size="small">Editar</Button>
-                    <Button size="small">Eliminar</Button>
+                    <Button onClick={() => deletCompany(company?.id)} size="small">Eliminar</Button>
                   </CardActions>
                 </Card>
               </Grid>

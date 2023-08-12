@@ -75,7 +75,6 @@ const Home = ({ themeGlobal }) => {
         Swal.fire('Error al eliminar la aplicacion', error.response.data.message)
         console.error(error)
       });
-
   }
 
   useEffect(() => {
@@ -85,13 +84,7 @@ const Home = ({ themeGlobal }) => {
     
   }, [jobAplication?.url_avatar, jobAplication?.name, id, dispatch]);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(getJobAplicationThunk(id));
-  //   }
-  // }, [id]);
-
-
+ 
   return (
     <ThemeProvider theme={themeGlobal}>
       <CssBaseline />
