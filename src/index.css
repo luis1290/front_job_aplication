@@ -27,6 +27,7 @@
   text-decoration: none;
   color: black;
   padding: 15px;
+  cursor: pointer;
 }
 
 Link:hover {

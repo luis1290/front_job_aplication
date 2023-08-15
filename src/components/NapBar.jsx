@@ -123,21 +123,21 @@ const NapBar = ({ nameUser, urlUser, themeGlobal }) => {
               }}
             >
 
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem className='linkMenu'  onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
-                  <Link onClick={() => handleClick('/')} color="inherit" underline="none">
+                  <Link  onClick={() => handleClick('/')} color="inherit" underline="none">
                     {'Inicio'}
                   </Link>
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem className='linkMenu' onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
                   <Link onClick={() => handleClick('/companies')} color="inherit" underline="none">
                     {'Empresas'}
                   </Link>
                 </Typography>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem className='linkMenu' onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">
                   <Link onClick={() => handleClick('/recluiters')} color="inherit" underline="none">
                     {'Reclutadores'}
