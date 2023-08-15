@@ -16,31 +16,13 @@ import { useEffect, useState } from 'react';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
-import { getCompaniesThunk } from '../store/slices/companies.slice';
-import ModalCreatCompany from '../components/ModalCreateCompany';
 import { getRecluitersThunk } from '../store/slices/recluiter.slice';
 import ModalCreateRecluter from '../components/ModalCreateRecluter';
 import DetailRecluter from '../components/DetailRecluter';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
 
 const Recluiters = ({ themeGlobal }) => {
 
@@ -151,7 +133,6 @@ const Recluiters = ({ themeGlobal }) => {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    {/* <Button size="small">Detalles</Button> */}
                     <DetailRecluter key={reclu?.id} company={reclu?.company} name={reclu?.name} />
                     <Button size="small">Editar</Button>
                     <Button onClick={() => deletRecluter(reclu?.id)} size="small">Eliminar</Button>

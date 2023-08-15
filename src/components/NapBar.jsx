@@ -11,14 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useNavigate } from 'react-router-dom';
+import { useEffect,  useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
-import { createTheme } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { setDark } from '../store/slices/dark.slice';
 import Link from '@mui/material/Link';
 
 const NapBar = ({ nameUser, urlUser, themeGlobal }) => {

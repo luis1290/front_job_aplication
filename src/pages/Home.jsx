@@ -11,38 +11,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
-import { useEffect, useMemo, useState } from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
 import ModalCreatAplication from '../components/ModalCreatAplication';
 import NapBar from '../components/NapBar';
 import { useDispatch, useSelector } from 'react-redux';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 import DetailtAplication from '../components/DetailtAplication';
-import { IconButton } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import getConfig from '../helpers/getConfig';
 import { useNavigate } from 'react-router';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
 
 
 const Home = ({ themeGlobal }) => {
@@ -161,7 +141,6 @@ const Home = ({ themeGlobal }) => {
                     </Typography>
                   </CardContent>
                   <CardActions >
-                    {/* <Button size="small">Detalles</Button> */}
                     <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} />
                     <Button size="small">Editar</Button>
                     <Button onClick={() => deletAplication(apl?.id)} size="small">Eliminar</Button>
@@ -186,7 +165,6 @@ const Home = ({ themeGlobal }) => {
         >
           Something here to give the footer a purpose!
         </Typography>
-        <Copyright />
       </Box>
       {/* End footer */}
     </ThemeProvider>

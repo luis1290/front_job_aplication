@@ -33,7 +33,7 @@ const ModalCreateRecluter = ({ themeGlobal }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} >
+        <Box className='modalCreate' sx={{ bgcolor: 'background.paper' }} >
           <Grid >
             <CreateRecluter themeGlobal={themeGlobal} setOpen={setOpen} />
             <Button onClick={handleOpen}

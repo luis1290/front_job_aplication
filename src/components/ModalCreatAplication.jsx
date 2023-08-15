@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 import CreateAplication from './CreateAplication';
@@ -33,7 +32,7 @@ const ModalCreatAplication = ({ themeGlobal }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} >
+        <Box className='modalCreate' sx={{ bgcolor: 'background.paper' }}  >
           <CreateAplication themeGlobal={themeGlobal} setOpen={setOpen} />
           <Button onClick={handleOpen}
             fullWidth

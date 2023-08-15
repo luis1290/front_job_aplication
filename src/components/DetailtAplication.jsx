@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
-import { ThemeProvider } from '@emotion/react';
+
 
 const DetailtAplication = ({ company, email, location }) => {
   const [open, setOpen] = React.useState(false);
@@ -34,7 +34,6 @@ const DetailtAplication = ({ company, email, location }) => {
             </Typography>
           </Grid>
         </Box>
-
       </Modal>
     </div>
   );

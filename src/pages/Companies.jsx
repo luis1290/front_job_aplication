@@ -21,23 +21,9 @@ import ModalCreatCompany from '../components/ModalCreateCompany';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+
 
 const Companies = ({ themeGlobal }) => {
 
@@ -73,9 +59,6 @@ const Companies = ({ themeGlobal }) => {
       if (result.isConfirmed) {
         axios.delete(`http://localhost:8000/delitecompanies/${id}`)
         .then((res) => {
-          console.log(res)
-          // navigate("/")
-          // dispatch(getJobAplicationThunk(id));
           dispatch(getCompaniesThunk())
           Swal.fire('Compañia  eliminada con exito')
         })

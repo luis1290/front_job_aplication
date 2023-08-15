@@ -1,8 +1,6 @@
-import { Box, Grid, Link } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import LoguinForm from '../components/loguin/SignInSide';
-import AuthLayout from './AuthLayout';
-import RegisterUser from '../components/loguin/RegisterUser';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { ThemeProvider } from '@emotion/react';

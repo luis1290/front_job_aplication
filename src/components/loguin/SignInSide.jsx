@@ -50,20 +50,6 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
     return formData.email && formData.password
   }
 
-  function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
-
   // TODO remove, this demo shouldn't need to reset the theme. condición ? expresiónSiEsVerdadera : expresiónSiEsFalsa;
 
   const defaultTheme = createTheme();
@@ -165,7 +151,6 @@ const LoguinForm = ({ clickableText, path, onSubmit, onChange, themeGlobal }) =>
                   </Button>
                 </Grid>
               </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>

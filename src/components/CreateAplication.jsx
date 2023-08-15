@@ -1,51 +1,23 @@
 
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Collapse, InputLabel, List, ListItemButton, ListItemIcon, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material';
-import { styled } from '@mui/system';
+import { InputLabel, MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCompaniesThunk } from '../store/slices/companies.slice';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
 import getConfig from '../helpers/getConfig';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
 import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
 
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
 
 const CreateAplication = ({ themeGlobal, setOpen }) => {
 
@@ -56,7 +28,7 @@ const CreateAplication = ({ themeGlobal, setOpen }) => {
   const navigate = useNavigate()
 
   const [company, setCompany] = useState('');
-  
+
   useEffect(() => {
     dispatch(getCompaniesThunk())
   }, [company, dispatch]);
@@ -89,7 +61,8 @@ const CreateAplication = ({ themeGlobal, setOpen }) => {
         Swal.fire('Aplicacion agregada con exito')
       })
       .catch((error) => {
-        Swal.fire('Error al crear la aplicacion')
+        setOpen()
+        Swal.fire(`Error al crear la aplicacion ${error.response.data.message}`)
         console.error(error)
       });
     console.log('Valores del formulario:', formValues);

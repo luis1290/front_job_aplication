@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
-import { ThemeProvider } from '@emotion/react';
+
 
 
 const DetailRecluter = ({  company, name }) => {
@@ -47,7 +47,6 @@ const DetailRecluter = ({  company, name }) => {
             </Grid>
           </Grid>
         </Box>
-
       </Modal>
     </div>
   );

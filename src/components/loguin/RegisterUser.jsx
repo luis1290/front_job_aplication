@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Box, Button, Card, IconButton, InputAdornment, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, Paper, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -51,18 +51,6 @@ const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) 
     return formData.name && formData.email && formData.password && formData.confirmPassword
   }
 
-  function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
 
   useEffect(() => {
     if (emailError && email) {
@@ -87,7 +75,7 @@ const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) 
 
   // TODO remove, this demo shouldn't need to reset the theme.
 
-  const defaultTheme = createTheme();
+
 
   return (
     <ThemeProvider theme={themeGlobal}>
@@ -209,15 +197,10 @@ const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) 
                 Registrarce
               </Button>
               <Grid item>
-                {/* <Link to={path} variant="body2">
-                  {clickableText}
-                </Link> */}
-
                 <Button onClick={() => handleClick('/loguin')} color="inherit" underline="none">
                   {clickableText}
                 </Button>
               </Grid>
-              {/* <Copyright sx={{ mt: 5 }} /> */}
             </Box>
           </Box>
         </Grid>
