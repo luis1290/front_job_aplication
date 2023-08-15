@@ -99,7 +99,7 @@ const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) 
           sm={4}
           md={7}
           sx={{
-            backgroundImage: `url(../public/${themeGlobal.palette.mode === 'dark' ? 'dark_theme.jpg' : 'litgth_theme.jpg'})`,
+            backgroundImage: `url(/${themeGlobal.palette.mode === 'dark' ? 'dark_theme.jpg' : 'litgth_theme.jpg'})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -121,7 +121,7 @@ const RegisterUser = ({ themeGlobal, clickableText, path, onSubmit, onChange }) 
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Registrarce
+              Registrarse
             </Typography>
             <Box sx={{ mt: 1 }}>
               <TextField

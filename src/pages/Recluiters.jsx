@@ -21,6 +21,8 @@ import ModalCreatCompany from '../components/ModalCreateCompany';
 import { getRecluitersThunk } from '../store/slices/recluiter.slice';
 import ModalCreateRecluter from '../components/ModalCreateRecluter';
 import DetailRecluter from '../components/DetailRecluter';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -59,6 +61,35 @@ const Recluiters = ({ themeGlobal }) => {
     dispatch(getRecluitersThunk())
     dispatch(getJobAplicationThunk(id));
   }, []);
+
+  const deletRecluter = (id) => {
+    Swal.fire({
+      title: '¿Deseas eliminar este dato?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Eliminar',
+      denyButtonText: `No Eliminado`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:8000/deliterecruiter/${id}`)
+          .then((res) => {
+            dispatch(getRecluitersThunk())
+            Swal.fire('Reclutador eliminada con exito')
+          })
+          .catch((error) => {
+            Swal.fire('Error al eliminar el Reclutador', error.response.data.message)
+            console.error(error)
+          });
+        Swal.fire('!Eliminado!', '', 'correctamente')
+      } else if (result.isDenied) {
+        Swal.fire('Reclutador no eliminada', '', 'info')
+      }
+    })
+  }
+
+
+
   return (
     <ThemeProvider theme={themeGlobal}>
       <CssBaseline />
@@ -123,7 +154,7 @@ const Recluiters = ({ themeGlobal }) => {
                     {/* <Button size="small">Detalles</Button> */}
                     <DetailRecluter key={reclu?.id} company={reclu?.company} name={reclu?.name} />
                     <Button size="small">Editar</Button>
-                    <Button size="small">Eliminar</Button>
+                    <Button onClick={() => deletRecluter(reclu?.id)} size="small">Eliminar</Button>
                   </CardActions>
                 </Card>
               </Grid>

@@ -64,27 +64,39 @@ const Home = ({ themeGlobal }) => {
 
 
   const deletAplication = (id) => {
-    axios.delete(`http://localhost:8000/deleteaplicationjob/${id}`, getConfig())
-      .then((res) => {
-        console.log(res)
-        // navigate("/")
-        dispatch(getJobAplicationThunk(id));
-        Swal.fire('Aplicacion eliminada con exito')
-      })
-      .catch((error) => {
-        Swal.fire('Error al eliminar la aplicacion', error.response.data.message)
-        console.error(error)
-      });
+    Swal.fire({
+      title: '¿Deseas eliminar este dato?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Eliminar',
+      denyButtonText: `No Eliminado`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:8000/deleteaplicationjob/${id}`, getConfig())
+          .then((res) => {
+            dispatch(getJobAplicationThunk(id));
+            Swal.fire('Aplicación eliminada con exito')
+          })
+          .catch((error) => {
+            Swal.fire('Error al eliminar la aplicación', error.response.data.message)
+            console.error(error)
+          });
+        Swal.fire('!Eliminado!', '', 'correctamente')
+      } else if (result.isDenied) {
+        Swal.fire('Aplicacion no eliminada', '', 'info')
+      }
+    })
   }
 
   useEffect(() => {
     dispatch(getJobAplicationThunk(id));
     setAbatar(jobAplication?.url_avatar)
     setName(jobAplication?.name)
-    
+
   }, [jobAplication?.url_avatar, jobAplication?.name, id, dispatch]);
 
- 
+
   return (
     <ThemeProvider theme={themeGlobal}>
       <CssBaseline />

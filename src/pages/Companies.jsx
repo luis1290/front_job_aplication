@@ -61,18 +61,33 @@ const Companies = ({ themeGlobal }) => {
   }, []);
 
   const deletCompany = (id) => {
-    axios.delete(`http://localhost:8000/delitecompanies/${id}`)
-      .then((res) => {
-        console.log(res)
-        // navigate("/")
-        // dispatch(getJobAplicationThunk(id));
-        dispatch(getCompaniesThunk())
-        Swal.fire('Compañia  eliminada con exito')
-      })
-      .catch((error) => {
-        Swal.fire('Error al eliminar compañia', error.response.data.message)
-        console.error(error)
-      });
+
+    Swal.fire({
+      title: '¿Deseas eliminar este dato?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Eliminar',
+      denyButtonText: `No Eliminado`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:8000/delitecompanies/${id}`)
+        .then((res) => {
+          console.log(res)
+          // navigate("/")
+          // dispatch(getJobAplicationThunk(id));
+          dispatch(getCompaniesThunk())
+          Swal.fire('Compañia  eliminada con exito')
+        })
+        .catch((error) => {
+          Swal.fire('Error al eliminar compañia', error.response.data.message)
+          console.error(error)
+        });
+        Swal.fire('!Eliminado!', '', 'correctamente')
+      } else if (result.isDenied) {
+        Swal.fire('Compañia no eliminada', '', 'info')
+      }
+    })   
   }
 
 

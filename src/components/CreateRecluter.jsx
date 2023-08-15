@@ -15,8 +15,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TextareaAutosize } from '@mui/material';
+import { InputLabel, MenuItem, Select, TextareaAutosize } from '@mui/material';
 import { styled } from '@mui/system';
+import { useDispatch, useSelector } from 'react-redux';
+import { getJobAplicationThunk } from '../store/slices/jobAplication.slice';
+import { getRecluitersThunk } from '../store/slices/recluiter.slice';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getCompaniesThunk } from '../store/slices/companies.slice';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 function Copyright(props) {
@@ -36,15 +44,58 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-const CreateRecluter = ({ themeGlobal }) => {
+const CreateRecluter = ({ themeGlobal, setOpen }) => {
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  // };
+
+  const dispatch = useDispatch();
+
+  const [formValues, setFormValues] = useState({
+    name: '',
+    linkelin: '',
+    email: '',
+    compani_id: ''
+  });
+  const companiesArray = useSelector((state) => state?.companies);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    dispatch(getCompaniesThunk())
+  }, [dispatch]);
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // Aquí puedes manejar la lógica para enviar los datos del formulario parseInt(numeroComoString);
+    axios.post('http://localhost:8000/addrecruiter', formValues)
+      .then((res) => {
+        console.log(res)
+        setOpen()
+        // navigate("/")    dispatch(setJobAplication(res.data));
+        // dispatch(getJobAplicationThunk(id));
+        dispatch(getRecluitersThunk())
+        Swal.fire('Aplicacion agregada con exito')
+      })
+      .catch((error) => {
+        Swal.fire('Error al crear la aplicacion')
+        console.error(error)
+      });
+    console.log('Valores del formulario:', formValues);
   };
+
   return (
     <ThemeProvider theme={themeGlobal}>
       <Container component="main" maxWidth="xs">
@@ -66,23 +117,25 @@ const CreateRecluter = ({ themeGlobal }) => {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="nameRecluter"
+                  name="name"
                   required
                   fullWidth
-                  id="nameRecluter"
+                  id="name"
                   label="Nombre Reclutador"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="emailRecluter"
+                  name="email"
                   required
                   fullWidth
-                  id="emailRecluter"
+                  id="email"
                   label="Email de Reclutador"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -94,10 +147,24 @@ const CreateRecluter = ({ themeGlobal }) => {
                   id="linkelin"
                   label="linkelin de Reclutador"
                   autoFocus
+                  onChange={handleChange}
                 />
               </Grid>
-
-
+              <Grid item xs={11} sm={11} md={11}>
+                <InputLabel id="demo-simple-select-label">Empresas</InputLabel>
+                <Select
+                  labelId="company"
+                  id="compani_id"
+                  name="compani_id"
+                  value={formValues.compani_id}
+                  label="Age"
+                  onChange={handleChange}
+                >
+                  {Array.isArray(companiesArray) ? companiesArray?.map((company) => (
+                    <MenuItem id="selectCompany" key={company?.id} value={company?.id}>{company?.name}</MenuItem>
+                  )) : null}
+                </Select>
+              </Grid>
             </Grid>
             <Button
               type="submit"

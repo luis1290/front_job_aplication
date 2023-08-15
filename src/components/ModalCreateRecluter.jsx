@@ -35,7 +35,7 @@ const ModalCreateRecluter = ({ themeGlobal }) => {
       >
         <Box sx={style} >
           <Grid >
-            <CreateRecluter themeGlobal={themeGlobal} />
+            <CreateRecluter themeGlobal={themeGlobal} setOpen={setOpen} />
             <Button onClick={handleOpen}
               fullWidth
               variant="contained"
