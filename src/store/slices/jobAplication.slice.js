@@ -20,7 +20,7 @@ export const getJobAplicationThunk = (id) => dispatch => {
   dispatch(setIsLoading(true));
   axios.get(`http://localhost:8000/users/${id}`, getConfig())
     .then((resp) => {
-      // console.log(resp.data)
+       console.log(resp.data)
       dispatch(setJobAplication(resp.data))
     })
     .catch(error => {

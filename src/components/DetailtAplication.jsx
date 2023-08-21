@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
 
 
-const DetailtAplication = ({ company, email, location }) => {
+const DetailtAplication = ({ company, email, location, interviews }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -32,6 +32,13 @@ const DetailtAplication = ({ company, email, location }) => {
             <Typography color="inherit" id="modal-modal-description" sx={{ mt: 2 }}>
               Ubicación: {location}
             </Typography>
+            {interviews.map((int) => (
+              <Box>
+               <Typography variant='h6' textAlign="center">Entrevista</Typography>
+                <Typography textAlign="center" sx={{ mt: 2, color: "inherit" }}>Fecha Entrevista: {int?.date_interview}</Typography>
+                <Typography textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
+              </Box>
+            ))}
           </Grid>
         </Box>
       </Modal>
