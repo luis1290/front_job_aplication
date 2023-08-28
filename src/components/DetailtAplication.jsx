@@ -36,10 +36,10 @@ const DetailtAplication = ({ company, email, location, interviews }) => {
               Ubicación: {location}
             </Typography>
             {interviews.map((int) => (
-              <Box key={int?.date_interview}>
+              <Box key={int?.id}>
                 <Typography key={int?.date_interview} variant='h6' textAlign="center">Entrevista</Typography>
-                <Typography key={int?.date_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Fecha Entrevista: {int?.date_interview}</Typography>
-                <Typography key={int?.date_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
+                <Typography key={int?.id} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Fecha Entrevista: {int?.date_interview}</Typography>
+                <Typography key={int?.time_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
               </Box>
             ))}
           </Grid>
