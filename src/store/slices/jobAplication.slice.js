@@ -20,12 +20,13 @@ export const getJobAplicationThunk = (id) => dispatch => {
   dispatch(setIsLoading(true));
   axios.get(`http://localhost:8000/users/${id}`, getConfig())
     .then((resp) => {
-       console.log(resp.data)
+      console.log(resp.data)
       dispatch(setJobAplication(resp.data))
     })
     .catch(error => {
       if (token) {
         console.log(error.response.data)
+        localStorage.clear();
       } else if (token === null) {
         console.log("State 403, However, you just have to log in to solve it. :)")
       } else {

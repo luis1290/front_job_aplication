@@ -4,12 +4,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
+import { useState } from 'react';
 
 
 const DetailtAplication = ({ company, email, location, interviews }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
 
   return (
     <div>
@@ -22,7 +25,7 @@ const DetailtAplication = ({ company, email, location, interviews }) => {
       >
 
         <Box elevation={24} className='DetailModal' sx={{ bgcolor: 'background.paper' }}>
-          <Grid color="inherit">
+          <Grid  color="inherit">
             <Typography color="inherit" id="modal-modal-title" variant="h6" component="h2">
               compañia {company}
             </Typography>
@@ -33,10 +36,10 @@ const DetailtAplication = ({ company, email, location, interviews }) => {
               Ubicación: {location}
             </Typography>
             {interviews.map((int) => (
-              <Box>
-               <Typography variant='h6' textAlign="center">Entrevista</Typography>
-                <Typography textAlign="center" sx={{ mt: 2, color: "inherit" }}>Fecha Entrevista: {int?.date_interview}</Typography>
-                <Typography textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
+              <Box key={int?.date_interview}>
+                <Typography key={int?.date_interview} variant='h6' textAlign="center">Entrevista</Typography>
+                <Typography key={int?.date_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Fecha Entrevista: {int?.date_interview}</Typography>
+                <Typography key={int?.date_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
               </Box>
             ))}
           </Grid>

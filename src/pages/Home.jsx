@@ -140,7 +140,7 @@ const Home = ({ themeGlobal }) => {
                       {apl.description}
                     </Typography>  
                       {apl?.interviews?.map((int) =>(
-                        <Typography textAlign="center">Fecha Entrevista: {int?.date_interview}</Typography>
+                        <Typography key={int?.date_interview} textAlign="center">Fecha Entrevista: {int?.date_interview}</Typography>
                       ))}
                   </CardContent>
                   <CardActions >
