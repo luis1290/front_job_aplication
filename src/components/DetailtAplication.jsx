@@ -6,8 +6,10 @@ import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
 import { useState } from 'react';
 
+import ModalCreateInterview from './ModalCreateInterview';
 
-const DetailtAplication = ({ company, email, location, interviews }) => {
+
+const DetailtAplication = ({ themeGlobal, company, email, location, interviews }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -25,7 +27,7 @@ const DetailtAplication = ({ company, email, location, interviews }) => {
       >
 
         <Box elevation={24} className='DetailModal' sx={{ bgcolor: 'background.paper' }}>
-          <Grid  color="inherit">
+          <Grid color="inherit">
             <Typography color="inherit" id="modal-modal-title" variant="h6" component="h2">
               compañia {company}
             </Typography>
@@ -42,6 +44,9 @@ const DetailtAplication = ({ company, email, location, interviews }) => {
                 <Typography key={int?.time_interview} textAlign="center" sx={{ mt: 2, color: "inherit" }}>Hora: {int?.time_interview}</Typography>
               </Box>
             ))}
+            <Box>
+              <ModalCreateInterview themeGlobal={themeGlobal} />
+            </Box>
           </Grid>
         </Box>
       </Modal>

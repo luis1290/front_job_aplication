@@ -138,13 +138,13 @@ const Home = ({ themeGlobal }) => {
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography textAlign="center">
                       {apl.description}
-                    </Typography>  
-                      {apl?.interviews?.map((int) =>(
-                        <Typography key={int?.date_interview} textAlign="center">Fecha Entrevista: {int?.date_interview}</Typography>
-                      ))}
+                    </Typography>
+                    {apl?.interviews?.map((int) => (
+                      <Typography key={int?.date_interview} textAlign="center">Fecha Entrevista: {int?.date_interview}</Typography>
+                    ))}
                   </CardContent>
                   <CardActions >
-                    <DetailtAplication key={apl?.company?.id} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} interviews ={apl?.interviews} />
+                    <DetailtAplication key={apl?.company?.id} themeGlobal={themeGlobal} company={apl?.company?.name} email={apl?.company?.email} location={apl?.company?.location} interviews={apl?.interviews} />
                     <Button size="small">Editar</Button>
                     <Button onClick={() => deletAplication(apl?.id)} size="small">Eliminar</Button>
                   </CardActions>
